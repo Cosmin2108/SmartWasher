@@ -5,6 +5,7 @@
 
 
 
+
 int main()
 {
 	while(1)
@@ -17,6 +18,7 @@ int main()
 3 - Get the temperature from washer\n \
 4 - Insert a new clothe in your washer\n \
 5 - Save all your clothes in a file\n ";
+
 			std::cout << "\n\n\n";
 			int option;
 			std::cin >> option;
@@ -57,7 +59,6 @@ int main()
 						std::string new_file;
 						std::cin >> new_file;
 
-						// read a JSON file
 						std::ifstream file(new_file);
 						nlohmann::json new_json;
 						file >> new_json;
@@ -74,7 +75,7 @@ int main()
 						std::cout << "Name your file:\n";
 						std::string new_file;
 						std::cin >> new_file;
-						// write prettified JSON to another file
+
 						std::ofstream output(new_file);
 						output << std::string{response.body.begin(), response.body.end()} << '\n';
 						break;
@@ -90,7 +91,7 @@ int main()
 		}
 		catch (const std::exception& e)
 		{
-		    std::cerr << "Request failed, error: " << e.what() << '\n';
+			std::cerr << "Request failed, error: " << e.what() << '\n';
 		}
 	}
 

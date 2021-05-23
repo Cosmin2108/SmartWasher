@@ -10,70 +10,70 @@ using namespace Rest;
 
 class SmartWasher{
 private:
-    std::vector<Clothes> clothes = {Clothes(1, "t-shirt", "cotton", "red", 0.6), Clothes(2, "gloves", "cotton", "green", 0.2)};
-    double temperature;
+	std::vector<Clothes> clothes = {Clothes(1, "t-shirt", "cotton", "red", 0.6), Clothes(2, "gloves", "cotton", "green", 0.2)};
+	double temperature;
 public:
-    SmartWasher(){
-        Clothes newCloth(3, "pants", "cotton", "blue", 1.2);
-        clothes.push_back(newCloth);
-    }
+	SmartWasher(){
+		Clothes newCloth(3, "pants", "cotton", "blue", 1.2);
+		clothes.push_back(newCloth);
+	}
 
-    // GET: /showClothes
-    void ShowClothes(const Rest::Request &request, Http::ResponseWriter response){
-        nlohmann::json arrayClothes = nlohmann::json();
+	// GET: /showClothes
+	void ShowClothes(const Rest::Request &request, Http::ResponseWriter response){
+		nlohmann::json arrayClothes = nlohmann::json();
 
-        for (int i=0; i< clothes.size(); i++){
-            arrayClothes["Clothes"].push_back(clothes[i].Serialize());
-        }
-        
-        auto mime = Http::Mime::MediaType::fromString("application/json");
+		for (int i=0; i< clothes.size(); i++){
+			arrayClothes["Clothes"].push_back(clothes[i].Serialize());
+		}
 
-        response.send(Http::Code::Ok, arrayClothes.dump(), mime);
-    }
+		auto mime = Http::Mime::MediaType::fromString("application/json");
 
-    // POST: /setTemperature
-    void SetTemperature(const Rest::Request &request, Http::ResponseWriter response){  
-        std::string body = request.body();
-        auto mime = Http::Mime::MediaType::fromString("application/json");
+		response.send(Http::Code::Ok, arrayClothes.dump(), mime);
+	}
 
-        nlohmann::json washerTemperature = nlohmann::json::parse(body);
-        temperature = (double) washerTemperature["temperature"];
-        response.send(Http::Code::Ok, washerTemperature.dump(), mime);
-    }
+	// POST: /setTemperature
+	void SetTemperature(const Rest::Request &request, Http::ResponseWriter response){  
+		std::string body = request.body();
+		auto mime = Http::Mime::MediaType::fromString("application/json");
 
-    // GET: /getTemperature
-    void GetTemperature(const Rest::Request &request, Http::ResponseWriter response){
-        nlohmann::json washerTemperature = {{"temperature", temperature}};
-        
-        auto mime = Http::Mime::MediaType::fromString("application/json");
-        response.send(Http::Code::Ok, washerTemperature.dump(), mime);
-    }
+		nlohmann::json washerTemperature = nlohmann::json::parse(body);
+		temperature = (double) washerTemperature["temperature"];
+		response.send(Http::Code::Ok, washerTemperature.dump(), mime);
+	}
 
-    // POST: /setClothe
-    void SetClothe(const Rest::Request &request, Http::ResponseWriter response){
+	// GET: /getTemperature
+	void GetTemperature(const Rest::Request &request, Http::ResponseWriter response){
+		nlohmann::json washerTemperature = {{"temperature", temperature}};
+		
+		auto mime = Http::Mime::MediaType::fromString("application/json");
+		response.send(Http::Code::Ok, washerTemperature.dump(), mime);
+	}
 
-        std::string body = request.body();
-        auto mime = Http::Mime::MediaType::fromString("application/json");
+	// POST: /setClothe
+	void SetClothe(const Rest::Request &request, Http::ResponseWriter response){
 
-        nlohmann::json my_request = nlohmann::json::parse(body);
+		std::string body = request.body();
+		auto mime = Http::Mime::MediaType::fromString("application/json");
 
-        Clothes newCloth((int)my_request["id"], my_request["type"], my_request["material"], my_request["color"], (double)my_request["weight"]);
-        clothes.push_back(newCloth);
+		nlohmann::json my_request = nlohmann::json::parse(body);
 
-        response.send(Http::Code::Ok, "{}", mime);
-    }
+		Clothes newCloth((int)my_request["id"], my_request["type"], my_request["material"], my_request["color"], (double)my_request["weight"]);
+		clothes.push_back(newCloth);
 
-    // GET: /saveClothes
-    void SaveClothes(const Rest::Request &request, Http::ResponseWriter response){
-        nlohmann::json arrayClothes = nlohmann::json();
+		response.send(Http::Code::Ok, "{}", mime);
+	}
 
-        for (int i=0; i< clothes.size(); i++){
-            arrayClothes["Clothes"].push_back(clothes[i].Serialize());
-        }
+	// GET: /saveClothes
+	void SaveClothes(const Rest::Request &request, Http::ResponseWriter response){
+		nlohmann::json arrayClothes = nlohmann::json();
 
-        auto mime = Http::Mime::MediaType::fromString("application/json");
+		for (int i=0; i< clothes.size(); i++){
+			arrayClothes["Clothes"].push_back(clothes[i].Serialize());
+		}
 
-        response.send(Http::Code::Ok, arrayClothes.dump(), mime);
-    }
+		auto mime = Http::Mime::MediaType::fromString("application/json");
+
+		response.send(Http::Code::Ok, arrayClothes.dump(), mime);
+	}
 
 };

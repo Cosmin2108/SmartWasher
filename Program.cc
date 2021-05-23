@@ -2,6 +2,6 @@
 
 int main()
 {
-    DeviceHandler *dev = DeviceHandler::GetInstance();
-    
+	DeviceHandler *dev = DeviceHandler::GetInstance();
+	
 }
