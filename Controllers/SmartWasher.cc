@@ -5,6 +5,8 @@
 #include "../Models/Clothes.cc"
 #include "../Models/WashingMode.cc"
 #include <vector>
+#include <iostream>
+// #include <boost/asio.hpp>
 
 using namespace Pistache;
 using namespace Rest;
@@ -14,11 +16,11 @@ class SmartWasher
 {
 private:
 	std::vector<Clothes> clothes = {Clothes(1, "t-shirt", "cotton", "red", 0.6, 0.7), Clothes(2, "gloves", "cotton", "green", 0.2, 0.9)};
-	std::vector<WashingMode> modes = {WashingMode(1, "Spalare rapida", 60, 5000, 60), WashingMode(2, "Spalare lunga", 60, 4000, 180)};
+	std::vector<WashingMode> modes = {WashingMode(0, "Spalare smart", 60, 5000, 60), WashingMode(1, "Spalare rapida", 60, 5000, 60), WashingMode(2, "Spalare lunga", 60, 4000, 180)};
 	WashingMode *currentMode = &modes[0];
+	bool idle = true;
 	double maxWeight = 20;
 	double energyUsed = 0;
-	double temperature;
 	Http::Mime::MediaType MIME = Http::Mime::MediaType::fromString("application/json");
 
 	double getCurrentWeight()
@@ -59,6 +61,15 @@ private:
 		return nullptr;
 	}
 
+	void updateSmartMode(WashingMode *mode)
+	{
+
+		mode->setDuration(200);
+		mode->setRPM(5000);
+		mode->setTemperature(100);
+		//modific params la mode in functie de hainele existente in masina
+	}
+
 public:
 	SmartWasher()
 	{
@@ -86,28 +97,38 @@ public:
 		for (int i = 0; i < clothes.size(); i++)
 		{
 			if (clothes[i].getId() == id)
-				{
-					clothes.erase(clothes.begin() + i);
-					break;
-				}
+			{
+				clothes.erase(clothes.begin() + i);
+				break;
+			}
 		}
 		response.send(Http::Code::Ok, "", MIME);
 	}
 
 	// POST: /setTemperature
-	void SetTemperature(const Rest::Request &request, Http::ResponseWriter response)
+	void getStatus(const Rest::Request &request, Http::ResponseWriter response)
 	{
-		std::string body = request.body();
-		json washerTemperature = json::parse(body);
-		temperature = (double)washerTemperature["temperature"];
-		response.send(Http::Code::Ok, washerTemperature.dump(), MIME);
+		json result = json();
+		result["washing"] = !idle;
+		result["params"] = currentMode->Serialize();
+
+		response.send(Http::Code::Ok, result.dump(), MIME);
 	}
 
-	// GET: /getTemperature
-	void GetTemperature(const Rest::Request &request, Http::ResponseWriter response)
+	void startWasher(const Rest::Request &request, Http::ResponseWriter response)
 	{
-		json washerTemperature = {{"temperature", temperature}};
-		response.send(Http::Code::Ok, washerTemperature.dump(), MIME);
+		if (currentMode->getId() == 0) // suntem in modul smart
+		{
+			updateSmartMode(currentMode);
+			// trebuie sa modificam smartMode-ul pentru hainele curenete si dupa ii dam start
+		}
+
+		idle = false;
+		json result = json();
+		result["washing"] = true;
+		result["params"] = currentMode->Serialize();
+
+		response.send(Http::Code::Ok, result.dump(), MIME);
 	}
 
 	// GET: washing_modes
@@ -188,7 +209,7 @@ public:
 	}
 
 	// POST: /setClothe
-	void SetClothe(const Rest::Request &request, Http::ResponseWriter response)
+	void SetClothingItem(const Rest::Request &request, Http::ResponseWriter response)
 	{
 		std::string body = request.body();
 		json my_request = json::parse(body);
@@ -218,18 +239,5 @@ public:
 			arrayClothes["Clothes"].push_back(clothes[i].Serialize());
 		}
 		response.send(Http::Code::Ok, arrayClothes.dump(), MIME);
-	}
-
-	// GET: /saveModes
-	void SaveModes(const Rest::Request &request, Http::ResponseWriter response)
-	{
-		json result = json();
-
-		for (auto mode : modes)
-		{
-			result.push_back(mode.Serialize());
-		}
-
-		response.send(Http::Code::Ok, result.dump(), MIME);
 	}
 };

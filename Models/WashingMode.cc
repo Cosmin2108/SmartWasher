@@ -30,14 +30,29 @@ public:
         return rpm;
     }
 
+    void setRPM(int rpm)
+    {
+        this->rpm = rpm;
+    }
+
     int getDuration()
     {
         return duration;
     }
 
+    void setDuration(int duration)
+    {
+        this->duration = duration;
+    }
+
     double getTemperature()
     {
         return temperature;
+    }
+
+    void setTemperature(double temperature)
+    {
+        this->temperature = temperature;
     }
 
     std::string getName()

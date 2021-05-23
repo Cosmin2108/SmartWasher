@@ -39,15 +39,14 @@ private:
 	{
 		Routes::Get(router, "/showClothes", Routes::bind(&SmartWasher::ShowClothes, &smartWasher));
 		Routes::Delete(router, "/deleteClothes/:id", Routes::bind(&SmartWasher::DeleteClothes, &smartWasher));
-		Routes::Get(router, "/getTemperature", Routes::bind(&SmartWasher::GetTemperature, &smartWasher));
-		Routes::Post(router, "/setTemperature", Routes::bind(&SmartWasher::SetTemperature, &smartWasher));
 		Routes::Post(router, "/setClothingItem", Routes::bind(&SmartWasher::SetClothingItem, &smartWasher));
 		Routes::Get(router, "/saveClothes", Routes::bind(&SmartWasher::SaveClothes, &smartWasher));
 		Routes::Get(router, "/washing_modes", Routes::bind(&SmartWasher::getWashingModes, &smartWasher));
 		Routes::Post(router, "/washing_modes", Routes::bind(&SmartWasher::addWashingMode, &smartWasher));
 		Routes::Get(router, "/washing_mode", Routes::bind(&SmartWasher::getCurrentWashingMode, &smartWasher));
 		Routes::Post(router, "/washing_mode/:id", Routes::bind(&SmartWasher::changeWashingMode, &smartWasher));
-		Routes::Get(router, "/saveModes", Routes::bind(&SmartWasher::SaveModes, &smartWasher));
+		Routes::Get(router, "/status", Routes::bind(&SmartWasher::getStatus, &smartWasher));
+		Routes::Post(router, "/start", Routes::bind(&SmartWasher::startWasher, &smartWasher));
 	}
 
 	void StartServer()

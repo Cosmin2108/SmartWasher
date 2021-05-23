@@ -1,7 +1,7 @@
 # SmartWasher
 Compile and execute server with:
 ```
-$ g++ -o SmartWasher Program.cc -std=c++17 -lpistache && ./SmartWasher
+$ g++ -o SmartWasher Program.cc -std=c++17 -lpistache -pthread && ./SmartWasher
 ```
 
 Make a request:
@@ -36,6 +36,14 @@ $ sudo apt install libpistache-dev
 $ sudo apt-get update
 $ sudo apt-get install nlohmann-json3-dev
 ```
+
+### BOOST
+```
+$ sudo apt install libboost-all-dev
+$ sudo apt install aptitude
+$ aptitude search boost
+```
+
 
 # Examples input
 ```

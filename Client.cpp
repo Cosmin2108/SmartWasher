@@ -142,7 +142,7 @@ int main()
 				}
 				case 11:
 				{
-					http::Request request{"http://127.0.0.1:8094/saveModes"};
+					http::Request request{"http://127.0.0.1:8094/washing_modes"};
 					const auto response = request.send("GET");
 
 					std::cout << "Name your output file:\n";
