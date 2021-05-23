@@ -129,7 +129,7 @@ public:
 	{
 		if (!currentMode)
 		{
-			response.send(Http::Code::Not_Found, "No mode selected");
+			response.send(Http::Code::Not_Found, "No mode selected", MIME);
 			return;
 		}
 
