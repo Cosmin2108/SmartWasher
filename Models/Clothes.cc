@@ -35,6 +35,11 @@ public:
 		return type;
 	}
 
+	int getId()
+	{
+		return id;
+	}
+
 	json Serialize()
 	{
 		return {{"id", id}, {"type", type}, {"material", material}, {"color", color}, {"weight", weight}};

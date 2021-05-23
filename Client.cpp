@@ -21,7 +21,9 @@ int main()
 6 - Print all washing modes\n \
 7 - Add a washing mode\n \
 8 - Print current washing mode\n \
-9 - Select/Change washing mode\n";
+9 - Select/Change washing mode\n \
+10 - Remove any clothe from washer\n \
+11 - Save all your washing modes in a file";
 
 			std::cout << "\n\n";
 			int option;
@@ -83,7 +85,6 @@ int main()
 					std::ofstream output(new_file);
 					output << std::string{response.body.begin(), response.body.end()} << '\n';
 					break;
-				
 				}
 				case 6:
 				{
@@ -126,6 +127,30 @@ int main()
 					const auto response = request.send("POST", "",
 						{"Content-Type: application/json"});
 					std::cout << std::string{response.body.begin(), response.body.end()} << '\n';
+					break;
+				}
+				case 10:
+				{
+					std::cout << "ID:\n";
+					std::string id;
+					std::cin >> id;
+
+					http::Request request{"http://127.0.0.1:8094/deleteClothes/" + id};
+					const auto response = request.send("DELETE");
+					std::cout << std::string{response.body.begin(), response.body.end()} << '\n';
+					break;
+				}
+				case 11:
+				{
+					http::Request request{"http://127.0.0.1:8094/saveModes"};
+					const auto response = request.send("GET");
+
+					std::cout << "Name your output file:\n";
+					std::string new_file;
+					std::cin >> new_file;
+
+					std::ofstream output(new_file);
+					output << std::string{response.body.begin(), response.body.end()} << '\n';
 					break;
 				}
 				default:

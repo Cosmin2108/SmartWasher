@@ -66,6 +66,21 @@ public:
 		response.send(Http::Code::Ok, arrayClothes.dump(), MIME);
 	}
 
+	// DELETE: /deleteClothes
+	void DeleteClothes(const Rest::Request &request, Http::ResponseWriter response)
+	{
+		auto id = request.param(":id").as<int>();
+		for (int i = 0; i < clothes.size(); i++)
+		{
+			if (clothes[i].getId() == id)
+				{
+					clothes.erase(clothes.begin() + i);
+					break;
+				}
+		}
+		response.send(Http::Code::Ok, "", MIME);
+	}
+
 	// POST: /setTemperature
 	void SetTemperature(const Rest::Request &request, Http::ResponseWriter response)
 	{
@@ -190,5 +205,18 @@ public:
 			arrayClothes["Clothes"].push_back(clothes[i].Serialize());
 		}
 		response.send(Http::Code::Ok, arrayClothes.dump(), MIME);
+	}
+
+	// GET: /saveModes
+	void SaveModes(const Rest::Request &request, Http::ResponseWriter response)
+	{
+		json result = json();
+
+		for (auto mode : modes)
+		{
+			result.push_back(mode.Serialize());
+		}
+
+		response.send(Http::Code::Ok, result.dump(), MIME);
 	}
 };
