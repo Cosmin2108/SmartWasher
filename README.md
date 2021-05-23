@@ -1,7 +1,7 @@
 # SmartWasher
-Compile server with:
+Compile and execute server with:
 ```
-$ g++ -o SmartWasher Program.cc -std=c++17 -lpistache
+$ g++ -o SmartWasher Program.cc -std=c++17 -lpistache && && ./SmartWasher
 ```
 
 Make a request:
