@@ -32,8 +32,20 @@ public:
     }
 
     // POST: /setTemperature
-    void SetTemperature(const Rest::Request &request, Http::ResponseWriter response){
-        // auto temp = request.param(":temperature").as<double>(); // Take data from POST request
-        temperature = 20.5;
+    void SetTemperature(const Rest::Request &request, Http::ResponseWriter response){  
+        std::string temp = request.body();
+        auto mime = Http::Mime::MediaType::fromString("application/json");
+
+        nlohmann::json washerTemperature = nlohmann::json::parse(temp);
+        temperature = (double) washerTemperature["temperature"];
+        response.send(Http::Code::Ok, washerTemperature.dump(), mime);
+    }
+
+    // GET: /getTemperature
+    void GetTemperature(const Rest::Request &request, Http::ResponseWriter response){
+        nlohmann::json washerTemperature = {{"temperature", temperature}};
+        
+        auto mime = Http::Mime::MediaType::fromString("application/json");
+        response.send(Http::Code::Ok, washerTemperature.dump(), mime);
     }
 };

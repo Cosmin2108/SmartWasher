@@ -34,7 +34,8 @@ private:
 
     void RegisterRoutes(){
         Routes::Get (router, "/showClothes", Routes::bind(&SmartWasher::ShowClothes, &smartWasher));
-        Routes::Post (router, "/setTemperature", Routes::bind(&SmartWasher::ShowClothes, &smartWasher));
+        Routes::Get (router, "/getTemperature", Routes::bind(&SmartWasher::GetTemperature, &smartWasher));
+        Routes::Post (router, "/setTemperature", Routes::bind(&SmartWasher::SetTemperature, &smartWasher));
     }
 
     void StartServer(){
