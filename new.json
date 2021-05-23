@@ -3,5 +3,6 @@
 	"type": "t-shirt",
 	"material": "puf",
 	"color": "black",
-	"weight": 1
+	"weight": 1,
+	"dirtiness": 0.7
 }

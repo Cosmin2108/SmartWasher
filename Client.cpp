@@ -16,13 +16,13 @@ int main()
 1 - Print what clothes do you have in your washer\n \
 2 - Set the temperature in washer\n \
 3 - Get the temperature from washer\n \
-4 - Insert a new clothe in your washer\n \
+4 - Insert a new clothing item in your washer\n \
 5 - Save all your clothes in a file\n \
 6 - Print all washing modes\n \
 7 - Add a washing mode\n \
 8 - Print current washing mode\n \
 9 - Select/Change washing mode\n \
-10 - Remove any clothe from washer\n \
+10 - Remove any clothing item from washer\n \
 11 - Save all your washing modes in a file";
 
 			std::cout << "\n\n";
@@ -59,7 +59,7 @@ int main()
 				}
 				case 4:
 				{
-					http::Request request{"http://127.0.0.1:8094/setClothe"};
+					http::Request request{"http://127.0.0.1:8094/setClothingItem"};
 					
 					std::cout << "Name your file:\n";
 					std::string new_file;

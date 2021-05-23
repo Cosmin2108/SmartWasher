@@ -11,13 +11,20 @@ private:
 	std::string material;
 	std::string color;
 	double weight;
+	double dirtiness;
+
 
 public:
-	Clothes(int id, std::string type, std::string material, std::string color, double weight) : id(id), type(type), material(color), weight(weight) {}
+	Clothes(int id, std::string type, std::string material, std::string color, double weight, double dirtiness) : id(id), type(type), material(material), color(color), weight(weight), dirtiness(dirtiness) {}
 
 	double getWeight()
 	{
 		return weight;
+	}
+
+	double getDirtiness()
+	{
+		return dirtiness;
 	}
 
 	std::string getMaterial()
@@ -42,6 +49,6 @@ public:
 
 	json Serialize()
 	{
-		return {{"id", id}, {"type", type}, {"material", material}, {"color", color}, {"weight", weight}};
+		return {{"id", id}, {"type", type}, {"material", material}, {"color", color}, {"weight", weight}, {"dirtiness", dirtiness}};
 	}
 };

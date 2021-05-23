@@ -41,7 +41,7 @@ private:
 		Routes::Delete(router, "/deleteClothes/:id", Routes::bind(&SmartWasher::DeleteClothes, &smartWasher));
 		Routes::Get(router, "/getTemperature", Routes::bind(&SmartWasher::GetTemperature, &smartWasher));
 		Routes::Post(router, "/setTemperature", Routes::bind(&SmartWasher::SetTemperature, &smartWasher));
-		Routes::Post(router, "/setClothe", Routes::bind(&SmartWasher::SetClothe, &smartWasher));
+		Routes::Post(router, "/setClothingItem", Routes::bind(&SmartWasher::SetClothingItem, &smartWasher));
 		Routes::Get(router, "/saveClothes", Routes::bind(&SmartWasher::SaveClothes, &smartWasher));
 		Routes::Get(router, "/washing_modes", Routes::bind(&SmartWasher::getWashingModes, &smartWasher));
 		Routes::Post(router, "/washing_modes", Routes::bind(&SmartWasher::addWashingMode, &smartWasher));

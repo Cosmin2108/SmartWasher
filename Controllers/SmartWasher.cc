@@ -13,7 +13,7 @@ using json = nlohmann::json;
 class SmartWasher
 {
 private:
-	std::vector<Clothes> clothes = {Clothes(1, "t-shirt", "cotton", "red", 0.6), Clothes(2, "gloves", "cotton", "green", 0.2)};
+	std::vector<Clothes> clothes = {Clothes(1, "t-shirt", "cotton", "red", 0.6, 0.7), Clothes(2, "gloves", "cotton", "green", 0.2, 0.9)};
 	std::vector<WashingMode> modes = {WashingMode(1, "Spalare rapida", 60, 5000, 60), WashingMode(2, "Spalare lunga", 60, 4000, 180)};
 	WashingMode *currentMode = &modes[0];
 	double maxWeight = 20;
@@ -33,6 +33,19 @@ private:
 		return total;
 	}
 
+	double getMaxDirtiness()
+	{
+		double maxDirtiness = 0;
+
+		for (auto cloth : clothes)
+		{
+			if (cloth.getDirtiness() > maxDirtiness)
+				maxDirtiness = cloth.getDirtiness();
+		}
+
+		return maxDirtiness;
+	}
+
 	WashingMode *getWashingModeById(int id)
 	{
 		for (int i = 0; i < modes.size(); i++)
@@ -49,7 +62,7 @@ private:
 public:
 	SmartWasher()
 	{
-		Clothes newCloth(3, "pants", "cotton", "blue", 1.2);
+		Clothes newCloth(3, "pants", "cotton", "blue", 1.2, 0.6);
 		clothes.push_back(newCloth);
 	}
 
@@ -189,7 +202,7 @@ public:
 			return;
 		}
 
-		Clothes newCloth((int)my_request["id"], my_request["type"], my_request["material"], my_request["color"], (double)my_request["weight"]);
+		Clothes newCloth((int)my_request["id"], my_request["type"], my_request["material"], my_request["color"], (double)my_request["weight"], (double)my_request["dirtiness"]);
 		clothes.push_back(newCloth);
 
 		response.send(Http::Code::Ok, "{}", MIME);
