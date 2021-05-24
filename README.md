@@ -37,13 +37,6 @@ $ sudo apt-get update
 $ sudo apt-get install nlohmann-json3-dev
 ```
 
-### BOOST
-```
-$ sudo apt install libboost-all-dev
-$ sudo apt install aptitude
-$ aptitude search boost
-```
-
 
 # Examples input
 ```
