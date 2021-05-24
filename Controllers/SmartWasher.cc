@@ -63,10 +63,54 @@ private:
 
 	void updateSmartMode(WashingMode *mode)
 	{
+		bool hasWhite = false;
+		bool hasColored = false;
+		double maxTemperature = 90;
+		double maxRPM = 1800;
+		double preferredDuration;
 
-		mode->setDuration(200);
-		mode->setRPM(5000);
-		mode->setTemperature(100);
+		for (auto cloth : clothes)
+		{
+			if (cloth.getColor() == "white")
+			{
+				hasWhite = true;
+			}
+			else if (cloth.getColor() != "black")
+			{
+				hasColored = true;
+			}
+			if (cloth.getMaterial() == "cotton")
+			{
+				if (maxTemperature > 80)
+				{
+					maxTemperature = 80;
+				}
+			}
+			else if(cloth.getMaterial() == "wool")
+			{
+				if (maxTemperature > 60)
+				{
+					maxTemperature = 60;
+				}
+			}
+			else if(cloth.getMaterial() == "polyester")
+			{
+				if (maxRPM > 1400)
+				{
+					maxRPM = 1400;
+				}
+			}
+		}
+		if (hasWhite && hasColored)
+		{
+			maxTemperature = 60;
+		}
+
+		preferredDuration = 30 + getCurrentWeight() * 12 * (90 / maxTemperature) * (1800 / maxRPM);
+
+		mode->setDuration(preferredDuration);
+		mode->setRPM(maxRPM);
+		mode->setTemperature(maxTemperature);
 		//modific params la mode in functie de hainele existente in masina
 	}
 
