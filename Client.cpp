@@ -14,8 +14,8 @@ int main()
 		{
 			std::cout << "Select from this options:\n \
 1 - Print what clothes do you have in your washer\n \
-2 - Set the temperature in washer\n \
-3 - Get the temperature from washer\n \
+2 - Start the washer\n \
+3 - Print washer status\n \
 4 - Insert a new clothing item in your washer\n \
 5 - Save all your clothes in a file\n \
 6 - Print all washing modes\n \
@@ -38,21 +38,16 @@ int main()
 				}
 				case 2:
 				{
-					http::Request request{"http://127.0.0.1:8094/setTemperature"};
+					http::Request request{"http://127.0.0.1:8094/start"};
 					
-					std::cout << "Select new temperature:\n";
-					float new_temperature;
-					std::cin >> new_temperature;
-					nlohmann::json washerTemperature = {{"temperature", new_temperature}};
-
-					const auto response = request.send("POST", washerTemperature.dump(),
+					const auto response = request.send("POST", "",
 						{"Content-Type: application/json"});
 					std::cout << std::string{response.body.begin(), response.body.end()} << '\n';
 					break;
 				}
 				case 3:
 				{
-					http::Request request{"http://127.0.0.1:8094/getTemperature"};
+					http::Request request{"http://127.0.0.1:8094/status"};
 					const auto response = request.send("GET");
 					std::cout << std::string{response.body.begin(), response.body.end()} << '\n';
 					break;

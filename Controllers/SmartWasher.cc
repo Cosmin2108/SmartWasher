@@ -154,7 +154,7 @@ public:
 		response.send(Http::Code::Ok, "", MIME);
 	}
 
-	// POST: /setTemperature
+	// GET: /status
 	void getStatus(const Rest::Request &request, Http::ResponseWriter response)
 	{
 		json result = json();
@@ -164,6 +164,7 @@ public:
 		response.send(Http::Code::Ok, result.dump(), MIME);
 	}
 
+	// POST: /start
 	void startWasher(const Rest::Request &request, Http::ResponseWriter response)
 	{
 		if (currentMode->getId() == 0) // suntem in modul smart

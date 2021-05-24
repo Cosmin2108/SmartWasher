@@ -53,7 +53,8 @@ For /setClothe method
 	"type": string,
 	"material": string,
 	"color": string,
-	"weight": int
+	"weight": int,
+	"dirtiness": double
 }
 
 Example:
@@ -62,7 +63,8 @@ Example:
 	"type": "t-shirt",
 	"material": "puf",
 	"color": "black",
-	"weight": 1
+	"weight": 1,
+	"dirtiness": 0.7
 }
 
 ```
