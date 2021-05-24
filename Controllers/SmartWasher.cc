@@ -66,7 +66,8 @@ private:
 		bool hasWhite = false;
 		bool hasColored = false;
 		double maxTemperature = 90;
-		double maxRPM = 1800;
+		int maxRPM = 1800;
+		double maxDirtiness = 0;
 		double preferredDuration;
 
 		for (auto cloth : clothes)
@@ -86,19 +87,23 @@ private:
 					maxTemperature = 80;
 				}
 			}
-			else if(cloth.getMaterial() == "wool")
+			else if (cloth.getMaterial() == "wool")
 			{
 				if (maxTemperature > 60)
 				{
 					maxTemperature = 60;
 				}
 			}
-			else if(cloth.getMaterial() == "polyester")
+			else if (cloth.getMaterial() == "polyester")
 			{
 				if (maxRPM > 1400)
 				{
 					maxRPM = 1400;
 				}
+			}
+			if (cloth.getDirtiness() > maxDirtiness)
+			{
+				maxDirtiness = cloth.getDirtiness();
 			}
 		}
 		if (hasWhite && hasColored)
@@ -106,7 +111,7 @@ private:
 			maxTemperature = 60;
 		}
 
-		preferredDuration = 30 + getCurrentWeight() * 12 * (90 / maxTemperature) * (1800 / maxRPM);
+		preferredDuration = 30 + getCurrentWeight() * 12 * (90 / maxTemperature) * (1800 / maxRPM) * maxDirtiness;
 
 		mode->setDuration(preferredDuration);
 		mode->setRPM(maxRPM);
