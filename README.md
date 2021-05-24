@@ -86,3 +86,191 @@ Example:
     "duration": 35
 }
 ```
+
+### Input buffers
+```
+{
+   "input_buffers":{
+      "setClothingItem":{
+         "token_delimitators":"",
+         "protocol":"HTTP",
+         "method":"POST",
+         "prefix":"localhost:8094/setClothingItem",
+         "buffer-tokens":[
+            {
+               "name":"type",
+               "description":"Type that lets the user know what clothing item is.",
+               "value":"t-shirt",
+               "token_type":"string",
+               "byte_size":256,
+               "regex-rule":"[a-zA-Z\-]*",
+               "optional":false
+            },
+            {
+               "name":"material",
+               "description":"Material that gives clothing item material.",
+               "value":"cotton",
+               "token_type":"string",
+               "byte_size":256,
+               "regex-rule":"[a-zA-Z]*",
+               "optional":false
+            },
+            {
+               "name":"color",
+               "description":"Sensor that gives color.",
+               "value":"red",
+               "token_type":"string",
+               "byte_size":256,
+               "optional":false
+            },
+            {
+               "name":"weight",
+               "description":"Sensor that gives weight",
+               "value":"35",
+               "token_type":"double",
+               "optional":false
+            },
+            {
+               "name":"dirtiness",
+               "description":"Sensor that gives dirtiness",
+               "value":"10",
+               "token_type":"double",
+               "optional":false
+            }
+         ]
+      },
+       "washing_modes":{
+          "token_delimitators":"",
+          "protocol":"HTTP",
+          "method":"POST",
+          "prefix":"localhost:8094/washing_modes",
+          "buffer-tokens":[
+             {
+                "name":"name",
+                "description":"The washing mode name.",
+                "value":"",
+                "token_type":"string",
+                "byte_size":256,
+                "regex-rule":"[a-zA-Z]+",
+                "optional":false
+             },
+             {
+                "name":"temperature",
+                "description":"The washing mode temperature.",
+                "value":"false",
+                "token_type":"double",
+                "optional":false
+             },
+             {
+                "name":"rpm",
+                "description":"The washing mode rpm.",
+                "value":"false",
+                "token_type":"double",
+                "optional":false
+             },
+             {
+                "name":"duration",
+                "description":"The washing mode duration.",
+                "value":"false",
+                "token_type":"double",
+                "optional":false
+             },
+          ]
+       }
+    }
+ }
+```
+
+### Output buffers
+```
+{
+   "output_buffers":{
+      "showClothes":{
+         "token_delimitators":"",
+         "protocol":"HTTP",
+         "method":"GET",
+         "prefix":"localhost:8094/showClothes",
+         "buffer-tokens":[
+            {
+               "name":"type",
+               "description":"Type that lets the user know what clothing item is.",
+               "value":"t-shirt",
+               "token_type":"string",
+               "byte_size":256,
+               "regex-rule":"[a-zA-Z\-]*",
+               "optional":false
+            },
+            {
+               "name":"material",
+               "description":"Material that gives clothing item material.",
+               "value":"cotton",
+               "token_type":"string",
+               "byte_size":256,
+               "regex-rule":"[a-zA-Z]*",
+               "optional":false
+            },
+            {
+               "name":"color",
+               "description":"Sensor that gives color.",
+               "value":"red",
+               "token_type":"string",
+               "byte_size":256,
+               "optional":false
+            },
+            {
+               "name":"weight",
+               "description":"Sensor that gives weight",
+               "value":"35",
+               "token_type":"double",
+               "optional":false
+            },
+            {
+               "name":"dirtiness",
+               "description":"Sensor that gives dirtiness",
+               "value":"10",
+               "token_type":"double",
+               "optional":false
+            }
+         ]
+      },
+       "washing_modes":{
+          "token_delimitators":"",
+          "protocol":"HTTP",
+          "method":"GET",
+          "prefix":"localhost:8094/washing_modes",
+          "buffer-tokens":[
+             {
+                "name":"name",
+                "description":"The washing mode name.",
+                "value":"",
+                "token_type":"string",
+                "byte_size":256,
+                "regex-rule":"[a-zA-Z]+",
+                "optional":false
+             },
+             {
+                "name":"temperature",
+                "description":"The washing mode temperature.",
+                "value":"false",
+                "token_type":"double",
+                "optional":false
+             },
+             {
+                "name":"rpm",
+                "description":"The washing mode rpm.",
+                "value":"false",
+                "token_type":"double",
+                "optional":false
+             },
+             {
+                "name":"duration",
+                "description":"The washing mode duration.",
+                "value":"false",
+                "token_type":"double",
+                "optional":false
+             },
+          ]
+       }
+    }
+ }
+```
